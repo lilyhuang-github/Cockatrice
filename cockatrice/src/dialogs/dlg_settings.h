@@ -233,6 +233,7 @@ private:
     QAction *aAdd;
     QAction *aEdit;
     QAction *aRemove;
+    QCheckBox localTimeCheckBox;
     QCheckBox chatMentionCheckBox;
     QCheckBox chatMentionCompleterCheckbox;
     QCheckBox invertMentionForeground;

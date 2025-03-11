@@ -1070,6 +1070,7 @@ MessagesSettingsPage::MessagesSettingsPage()
     connect(&chatMentionCheckBox, &QCheckBox::QT_STATE_CHANGED, &SettingsCache::instance(),
             &SettingsCache::setChatMention);
 
+    //localTimeCheckBox.setChecked(SettingsCache::instance().get)
     chatMentionCompleterCheckbox.setChecked(SettingsCache::instance().getChatMentionCompleter());
     connect(&chatMentionCompleterCheckbox, &QCheckBox::QT_STATE_CHANGED, &SettingsCache::instance(),
             &SettingsCache::setChatMentionCompleter);
@@ -1123,6 +1124,7 @@ MessagesSettingsPage::MessagesSettingsPage()
     chatGrid->addWidget(&messagePopups, 4, 0);
     chatGrid->addWidget(&mentionPopups, 5, 0);
     chatGrid->addWidget(&roomHistory, 6, 0);
+    chatGrid->addWidget(&localTimeCheckBox, 7, 0);
     chatGroupBox = new QGroupBox;
     chatGroupBox->setLayout(chatGrid);
 
@@ -1287,6 +1289,7 @@ void MessagesSettingsPage::retranslateUi()
     chatGroupBox->setTitle(tr("Chat settings"));
     highlightGroupBox->setTitle(tr("Custom alert words"));
     chatMentionCheckBox.setText(tr("Enable chat mentions"));
+    localTimeCheckBox.setText(tr("Enable local time"));
     chatMentionCompleterCheckbox.setText(tr("Enable mention completer"));
     messageGroupBox->setTitle(tr("In-game message macros"));
     explainMessagesLabel.setText(

@@ -333,6 +333,7 @@ SettingsCache::SettingsCache()
     rememberGameSettings = settings->value("game/remembergamesettings", true).toBool();
     clientID = settings->value("personal/clientid", CLIENT_INFO_NOT_SET).toString();
     clientVersion = settings->value("personal/clientversion", CLIENT_INFO_NOT_SET).toString();
+    simpleDialog = settings->value("chat/simpledialog", false).toBool();
 }
 
 void SettingsCache::setUseTearOffMenus(bool _useTearOffMenus)
@@ -1303,6 +1304,11 @@ void SettingsCache::setRoundCardCorners(bool _roundCardCorners)
     roundCardCorners = _roundCardCorners;
     settings->setValue("cards/roundcardcorners", _roundCardCorners);
     emit roundCardCornersChanged(roundCardCorners);
+}
+void SettingsCache::setSimpleDialog(bool _simpleDialog)
+{
+    simpleDialog = (bool)_simpleDialog;
+    settings->setValue("chat/simpledialog", simpleDialog);
 }
 
 void SettingsCache::loadPaths()

@@ -206,6 +206,7 @@ private:
     QList<ReleaseChannel *> releaseChannels;
     bool isPortableBuild;
     bool roundCardCorners;
+    bool simpleDialog;
 
 public:
     SettingsCache();
@@ -308,6 +309,10 @@ public:
     QString getChatHighlightColor() const
     {
         return chatHighlightColor;
+    }
+    bool getSimpleDialog() const
+    {
+        return simpleDialog;
     }
     bool getPicDownload() const
     {
@@ -849,6 +854,7 @@ public slots:
     void setUpdateReleaseChannelIndex(int value);
     void setMaxFontSize(int _max);
     void setRoundCardCorners(bool _roundCardCorners);
+    void setSimpleDialog(bool _simpleDialog);
 };
 
 #endif

@@ -20,7 +20,7 @@ private:
         MessageContext_MoveCard,
         MessageContext_Mulligan
     };
-
+    bool simplifiedDialog;
     int mulliganNumber;
     Player *mulliganPlayer;
     MessageContext currentContext;

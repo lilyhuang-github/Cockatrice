@@ -390,7 +390,9 @@ void SettingsCache::setMaxFontSize(int /* _max */)
 void SettingsCache::setRoundCardCorners(bool /* _roundCardCorners */)
 {
 }
-
+void SettingsCache::setSimpleDialog(bool /*_simpleDialog*/)
+{
+}
 void PictureLoader::clearPixmapCache(CardInfoPtr /* card */)
 {
 }

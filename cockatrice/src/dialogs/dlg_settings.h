@@ -240,6 +240,7 @@ private:
     QCheckBox messagePopups;
     QCheckBox mentionPopups;
     QCheckBox roomHistory;
+    QCheckBox useSimpleDialogueCheckBox;
     QGroupBox *chatGroupBox;
     QGroupBox *highlightGroupBox;
     QGroupBox *messageGroupBox;

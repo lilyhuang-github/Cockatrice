@@ -68,17 +68,35 @@ QPair<QString, QString>
 MessageLogWidget::getFromStr(CardZone *zone, QString cardName, int position, bool ownerChange) const
 {
     bool cardNameContainsStartZone = false;
+    bool simpleDialog = SettingsCache::instance().getSimpleDialog();
+   
     QString fromStr;
     QString zoneName = zone->getName();
 
     if (zoneName == tableConstant()) {
-        fromStr = tr(" from play");
+        if (simpleDialog) {
+            fromStr = tr(" play");
+        } else {
+            fromStr = tr(" from play");
+        }
     } else if (zoneName == graveyardConstant()) {
-        fromStr = tr(" from their graveyard");
+        if (simpleDialog) {
+            fromStr = tr(" graveyard");
+        } else {
+            fromStr = tr(" from their graveyard");
+        }
     } else if (zoneName == exileConstant()) {
-        fromStr = tr(" from exile");
+        if (simpleDialog) {
+            fromStr = tr(" exile");
+        } else {
+            fromStr = tr(" from exile");
+        }
     } else if (zoneName == handConstant()) {
-        fromStr = tr(" from their hand");
+        if (simpleDialog) {
+            fromStr = tr(" hand");
+        } else {
+            fromStr = tr(" from their hand");
+        }
     } else if (zoneName == deckConstant()) {
         if (position == 0) {
             if (cardName.isEmpty()) {
@@ -112,15 +130,27 @@ MessageLogWidget::getFromStr(CardZone *zone, QString cardName, int position, boo
             }
         } else {
             if (ownerChange) {
-                fromStr = tr(" from %1's library").arg(zone->getPlayer()->getName());
+                if (simpleDialog) {
+                    fromStr = tr("  %1's library").arg(zone->getPlayer()->getName());
+                } else {
+                    fromStr = tr(" from %1's library").arg(zone->getPlayer()->getName());
+                }
             } else {
                 fromStr = tr(" from their library");
             }
         }
     } else if (zoneName == sideboardConstant()) {
-        fromStr = tr(" from sideboard");
+        if (simpleDialog) {
+            fromStr = tr(" sideboard");
+        } else {
+            fromStr = tr(" from sideboard");
+        }
     } else if (zoneName == stackConstant()) {
-        fromStr = tr(" from the stack");
+        if (simpleDialog) {
+            fromStr = tr(" stack");
+        } else {
+            fromStr = tr(" from the stack");
+        }
     }
 
     if (!cardNameContainsStartZone) {
@@ -322,37 +352,82 @@ void MessageLogWidget::logMoveCard(Player *player,
 
     QString finalStr;
     bool usesNewX = false;
+    bool simpleDialog = SettingsCache::instance().getSimpleDialog();
     if (targetZoneName == tableConstant()) {
         soundEngine->playSound("play_card");
         if (card->getFaceDown()) {
-            finalStr = tr("%1 puts %2 into play%3 face down.");
+            if (simpleDialog) { 
+              finalStr = tr("%1: %2 (%3 -> play face down).");
+            } else {
+                finalStr = tr("%1 puts %2 into play%3 face down.");
+            }
         } else {
-            finalStr = tr("%1 puts %2 into play%3.");
+            if (simpleDialog) {
+                finalStr = tr("%1: %2 (%3 -> play).");
+            }
+            else{
+                finalStr = tr("%1 puts %2 into play%3.");
+            }
         }
     } else if (targetZoneName == graveyardConstant()) {
-
-        finalStr = tr("%1 puts %2%3 into their graveyard.");
+        if (simpleDialog) {
+            finalStr = tr("%1: %2(%3 -> graveyard).");
+        } else {
+            finalStr = tr("%1 puts %2%3 into their graveyard.");
+        }
     } else if (targetZoneName == exileConstant()) {
-        finalStr = tr("%1 exiles %2%3.");
+        if (simpleDialog) {
+            finalStr = tr("%1: %2 (%3 -> exile).");
+        } else {
+            finalStr = tr("%1 exiles %2%3.");
+        }
     } else if (targetZoneName == handConstant()) {
-        finalStr = tr("%1 moves %2%3 to their hand.");
+        if (simpleDialog) {
+            finalStr = tr("%1: %2 (%3 -> hand).");
+        } else {
+            finalStr = tr("%1 moves %2%3 to their hand.");
+        }
     } else if (targetZoneName == deckConstant()) {
         if (newX == -1) {
-            finalStr = tr("%1 puts %2%3 into their library.");
+            if (simpleDialog) {
+                finalStr = tr("%1: %2 (%3 -> library).");
+            } else {
+                finalStr = tr("%1 puts %2%3 into their library.");
+            }
         } else if (newX >= targetZone->getCards().size()) {
-            finalStr = tr("%1 puts %2%3 onto the bottom of their library.");
+            if (simpleDialog) {
+                finalStr = tr("%1: %2 (%3 -> bottom of library).");
+            } else {
+                finalStr = tr("%1 puts %2%3 onto the bottom of their library.");
+            }
         } else if (newX == 0) {
-            finalStr = tr("%1 puts %2%3 on top of their library.");
+            if (simpleDialog) {
+                finalStr = tr("%1: %2 (%3 -> top of library).");
+            } else {
+                finalStr = tr("%1 puts %2%3 on top of their library.");
+            }
         } else {
             ++newX;
             usesNewX = true;
-            finalStr = tr("%1 puts %2%3 into their library %4 cards from the top.");
+            if (simpleDialog) {
+                finalStr = tr("%1: %2 (%3 -> %4 cards from top of library).");
+            } else {
+                finalStr = tr("%1 puts %2%3 into their library %4 cards from the top.");
+            }
         }
     } else if (targetZoneName == sideboardConstant()) {
-        finalStr = tr("%1 moves %2%3 to sideboard.");
+        if (simpleDialog) {
+            finalStr = tr("%1: %2 (%3 -> sideboard).");
+        } else {
+            finalStr = tr("%1 moves %2%3 to sideboard.");
+        }
     } else if (targetZoneName == stackConstant()) {
         soundEngine->playSound("play_card");
-        finalStr = tr("%1 plays %2%3.");
+        if (simpleDialog) {
+            finalStr = tr("%1: %2 (%3 -> play).");
+        } else {
+            finalStr = tr("%1 plays %2%3.");
+        }
     }
 
     if (usesNewX) {
